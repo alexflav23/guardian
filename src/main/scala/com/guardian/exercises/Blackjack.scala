@@ -69,7 +69,7 @@ case class Hand(cards: List[Card]) {
   }
 }
 
-trait Outcome {
+trait BlackjackOutcome {
   def playerHand: Hand
 
   def dealerHand: Hand
@@ -78,12 +78,12 @@ trait Outcome {
 case class DealerWon(
   playerHand: Hand,
   dealerHand: Hand
-) extends Outcome
+) extends BlackjackOutcome
 
 case class PlayerWon(
   playerHand: Hand,
   dealerHand: Hand
-) extends Outcome
+) extends BlackjackOutcome
 
 object Blackjack {
 
@@ -91,7 +91,7 @@ object Blackjack {
     deck: Deck,
     sam: Hand,
     dealer: Hand
-  ): Outcome = {
+  ): BlackjackOutcome = {
 
     if (sam.handValue == 21) {
       println(s"Sam won: ${sam.handValue}; Dealer: ${sam.handValue}")
@@ -108,15 +108,13 @@ object Blackjack {
         play(newDeck, sam.addCard(samCard), dealer)
       }
     } else {
-
       // if dealer's hand is over 21
       println("Dealer's hand is over 21")
       PlayerWon(sam, dealer)
     }
   }
 
-  def runGame: Outcome = {
-    val deck = new Deck()
+  def runGame(deck: Deck = new Deck()): BlackjackOutcome = {
     val (dealerHand, deckAfterDealer) = deck.pullHand()
     val (samsHand, remainingDeck) = deckAfterDealer.pullHand()
 
