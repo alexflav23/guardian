@@ -42,6 +42,6 @@ lazy val guardian = (project in file("."))
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % Versions.scalatest,
       "com.outworkers" %% "util-samplers" % Versions.util,
-      "org.scalacheck" % "scalacheck" % Versions.scalacheck
+      "org.scalacheck" %% "scalacheck" % Versions.scalacheck
     )
   )
